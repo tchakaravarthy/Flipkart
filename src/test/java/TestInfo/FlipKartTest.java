@@ -1,5 +1,6 @@
 package TestInfo;
 
+import java.io.IOException;
 import java.util.Set;
 
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
@@ -63,21 +64,48 @@ public class FlipKartTest {
       
       SoftAssert softAssert = new SoftAssert();
       softAssert.assertEquals(modelText, "BQ2125");
-      softAssert.assertNotEquals(price.getText(), "5,997");
+      softAssert.assertEquals(price.getText(), "5,997");
 		//Assert.assertEquals("BQ2125", modelText);
      System.out.println("valid iterm added to cart");
      String title = driver.getTitle();
 System.out.println("title name: " + title);
+ driver.findElement(By.xpath("//button[@class='_2KpZ6l _2ObVJD _3AWRsL']")).click();
+Thread.sleep(3000);
+	}
+	@Test (priority=3)
+	private void EnterAddressAndPaymentOptions() throws Throwable  {
+WebElement mobileNumber = driver.findElement(By.xpath("//input[@type='text']"));
+//mobileNumber.sendKeys("8825480080");
+mobileNumber.sendKeys(ExcelRead.readExcel(0, 1, "Sheet1"));
+driver.findElement(By.xpath("//button[@class='_2KpZ6l _20xBvF _3AWRsL']")).click();
+Thread.sleep(1000);
+WebElement passWord = driver.findElement(By.xpath("//input[@type='password']"));
+	passWord.sendKeys(ExcelRead.readExcel(1, 0, "Sheet1"));
+	driver.findElement(By.xpath("//button[@type='submit']")).click();
+	Thread.sleep(2000);
+	WebElement delivery = driver.findElement(By.xpath("//button[@class='_2KpZ6l RLM7ES _3AWRsL']"));
+	 delivery.click();
+	 WebElement moveToPaymentSlot = driver.findElement(By.xpath("//button[@class='_2KpZ6l _1seccl _3AWRsL']"));
+	 moveToPaymentSlot.click();
+	 Thread.sleep(2000);
+	 WebElement paymentMethod = driver.findElement(By.xpath("(//div[@class='_1XFPmK'])[2]"));
+	 paymentMethod.click();
+	 Thread.sleep(2000);
+
+	}
+	@Test (priority=4)
+	private void toRemoveAddedItem() {
+		WebElement changeOrderSummary = driver.findElement(By.xpath("(//button[@class='_32l7f0'])[3]"));
+		changeOrderSummary.click();
+		WebElement removeItem = driver.findElement(By.xpath("//div[@class='_3dsJAO']"));
+removeItem.click();
+driver.close();
 	}
 	
 	
-@Test
-public void placeOrderAndAddAddress() throws InterruptedException {
-	
-	driver.findElement(By.xpath("//button[@class='_2KpZ6l _2ObVJD _3AWRsL']")).click();
 	
 	
 	
 }
 
-}
+

@@ -5,7 +5,7 @@
     <classes>
       <class name="TestInfo.FlipKartTest">
         <methods>
-          <include name="placeOrderAndAddAddress"/>
+          <include name="EnterAddressAndPaymentOptions"/>
         </methods>
       </class> <!-- TestInfo.FlipKartTest -->
     </classes>
